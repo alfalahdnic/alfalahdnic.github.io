@@ -187,9 +187,12 @@
         }
 
         .logo img {
-            height: 45px;
+            height: 40px;
             transition: var(--transition);
-        }
+            position: fixed;
+            margin-right: 10px;
+            vertical-align: middle;
+            position: static;}
 
         .logo-text {
             font-size: 1.6rem;
@@ -197,6 +200,8 @@
             background: linear-gradient(90deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
+            position: relative;
+    
             color: transparent;
         }
 
@@ -339,7 +344,7 @@
             position: relative;
             border-radius: 15px;
             overflow: hidden;
-            bor
+        
             
         }
 
