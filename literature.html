@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Union Literature</title>
+    <meta name="description" content="Explore the creative works of our class, including poems and essays by talented students.">
+    <meta name="keywords" content="Class Literature, Poems, Essays, Student Works, Creative Writing">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-darker: #0a0a0a;
+            --accent: #6e45e2;
+            --accent-light: #8d6eff;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --card-bg: #1e1e1e;
+            --card-hover: #2a2a2a;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'anek', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(110, 69, 226, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--accent-light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            z-index: 1;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .subtitle {
+            font-weight: 300;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease-out 0.3s both;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 100;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 110px;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 4px 30px rgba(110, 69, 226, 0.3);
+            border: 1px solid var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-results {
+            position: absolute;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            
+        }
+
+        .search-results.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .search-result-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .search-result-item:hover {
+            background: var(--card-hover);
+            color: var(--accent-light);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--accent-light));
+            border-radius: 3px;
+        }
+
+        .literature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .literature-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            transform: translateY(0);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+            cursor: pointer;
+        }
+
+        .literature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: var(--card-hover);
+        }
+
+        .literature-card:nth-child(1) { animation-delay: 0.1s; }
+        .literature-card:nth-child(2) { animation-delay: 0.2s; }
+        .literature-card:nth-child(3) { animation-delay: 0.3s; }
+        .literature-card:nth-child(4) { animation-delay: 0.4s; }
+        .literature-card:nth-child(5) { animation-delay: 0.5s; }
+        .literature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card-image {
+            height: 200px;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poem .card-image {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        }
+
+        .essay .card-image {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+
+        .card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .literature-card:hover .card-image::before {
+            transform: translateX(100%);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .literature-card:hover .card-icon {
+            transform: scale(1.1);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .literature-card:hover .card-title {
+            color: var(--accent-light);
+        }
+
+        .card-author {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .card-type {
+            background: rgba(110, 69, 226, 0.2);
+            color: var(--accent-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-date {
+            opacity: 0.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background: var(--bg-darker);
+            margin-top: 3rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .literature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+        }
+
+        /* Scroll animation for cards */
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Highlight animation for search results */
+        .highlight {
+            animation: highlight 1.5s ease-out;
+        }
+
+        @keyframes highlight {
+            0% {
+                background: rgba(110, 69, 226, 0.3);
+                box-shadow: 0 0 0 rgba(110, 69, 226, 0);
+            }
+            50% {
+                background: rgba(110, 69, 226, 0.6);
+                box-shadow: 0 0 20px rgba(110, 69, 226, 0.4);
+            }
+            100% {
+                background: transparent;
+                box-shadow: 0 0 0 rgba(110, 69, 226, 0);
+            }
+        }
+        .lin {
+            background: linear-gradient(to right, var(--accent-light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Class Literature</h1>
+        <p class="subtitle">Explore the creative works of our class</p>
+        
+       
+    </header>
+    <br>
+     <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search poems, essays, authors..." id="searchInput">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+    <div class="container">
+        <section id="poems" style="width: max-content; height: max-content;">
+            <h2 class="section-title">Poems - <span class="lin">Malayalam</span></h2>
+            <div class="literature-grid">
+                <!-- Poem 1 -->
+                <div class="literature-card poem" data-title="maathrspandanam/മാതൃസ്പന്ദനം" data-author="Hamdan" data-type="poem" data-id="poem1">
+                    <div class="card-image">
+                        <span class="card-icon">✍️</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">മാതൃസ്പന്ദനം </h3>
+                        <p>- Hamdan</p>
+                        <br>
+                        <span class="card-author">
+                            ഏറെ സന്തോഷിപ്പിക്കും എന്നെ ഉമ്മ 
+                            മകനെ കുറിച് പേടിക്കും എന്റെ ഉമ്മ 
+                            എനിക്ക് അറിവ് പകർത്തിടും എന്റെ ഉമ്മ 
+                            എന്നെ സ്നേഹിക്കും ഏറെ വാത്സല്യത്തോടെ 
+                            ഞാൻ ഉമ്മയെ ഏറെ സ്നേഹിക്കും 
+                            എനിക്ക് നല്ല വാക്കുകൾ പകർന്നു നൽകുന്നു 
+                            എന്നെ ദുശീലങ്ങളിൽ നിന്ന് കാത്തുസൂക്ഷിക്കും 
+                            എന്നെ നല്ല നിലയിൽ ദർശിക്കും 
+                            എനിക്ക് ആത്മവിശ്വാസം നൽകും 
+                            എന്റെ ലക്ഷ്യത്തിലേക്ക് നയിക്കും 
+                            എനിക്ക് ഉമ്മ പഠിപ്പിച്ചു തരും 
+                            ചോറ് വാരിത്തരും എന്റെ ഉമ്മ 
+                            ഞാൻ എന്റെ ഉമ്മയെ സ്നേഹിക്കുന്നു 
+                            എന്നെ വാത്സല്യത്തോടെ നോക്കും ഉമ്മ 
+                        </span>
+                       
+                        <div class="card-footer">
+                            <span class="card-type">Poem</span>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poem 2 -->
+                <div class="literature-card poem" data-title="Puthu thalamura/പുതു തലമുറ" data-author="alsaf kp" data-type="poem" data-id="poem2">
+                    <div class="card-image">
+                        <span class="card-icon">🍂</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">പുതു തലമുറ </h3>
+                        <p>- Alsaf Kp</p>
+                        <br>
+                        <span class="card-author"> 
+                            പക്ഷിതൻ ചിലപ്പിൽ ഞാനെൻ 
+                            അൽപ്പമെന്നോളം ഞാൻ അഴികളിൽ 
+                            തട്ടി നോക്കി 
+                            സൂര്യപ്രകാശം മെത്തയിൽ തട്ടവേ 
+                            കണ്ണാടി ഒന്ന് മിനുങ്ങി നിന്നു . 
+                            പ്രാഥമിക കർത്തവ്യം ഫോണായി 
+                            മാറുമ്പോൾ എന്നത് കളിയായിരുന്നെന്ന 
+                            ചിന്തയിലായ് കാലമത് മാറുന്ന 
+                            ജാലകം ചില്ലായി, വൃക്ഷമത് 
+                            പോയപ്പോൾ ചൂടിലോ?
+                            പൊരുതിയ കേരളം കുളിരായി പേമാലി.
+                            താങ്ങാൻ സ്ഥലമില്ല , ഒഴുകാൻ 
+                            പുഴയില്ല , ജലമിനി എന്ത് ചെയ്യും? </span>
+                        <div class="card-footer">
+                            <span class="card-type">Poem</span>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poem 3 -->
+                <div class="literature-card poem" data-title="rooh/റൂഹ്" data-author="sinan tv" data-type="poem" data-id="poem3">
+                    <div class="card-image">
+                        <span class="card-icon">🌊</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">റൂഹ്</h3>
+                        <p>Sinan Tv</p>
+                        <br>
+                        <span class="card-author">
+                            കണ്ണുനീർ ഒഴുകിനിൽകുന്ന 
+                            എന്റെ മുന്നിൽ 
+                            ദൈവത്തിന് കയ്യുകൾ ഒഴുകി 
+                            വീണു.
+                            വേദന അറിഞ്ഞ എന്റെ മുന്നിൽ 
+                            വെളിച്ചം പകർന്നു വന്നു.
+                            മെഴുക് തിരി നാളമായ് 
+                            വെട്ടവും പൊലിപ്പിച്ചു .
+                            ഇരുൾ വഴിയിൽ ഊർജമായ് 
+                            പെയ്തിടുന്നു.
+                            ഒറ്റക്കുള്ള മുറിയിൽ 
+                            ഞാൻ ഇരിക്കുമ്പോൾ 
+                            കടന്നു വരുന്നു എന്റെ റൂഹ് 
+                            വീടും പറമ്പും ഉപേക്ഷിച്ചു 
+                            ഇവിടേക്ക് എന്തിനു വന്നു? 
+                            നേരവും വെളിച്ചവും ഇല്ലാതെ 
+                            എന്റെ മുമ്പിൽ കടന്നു വരുന്നു 
+                            ബാല്യകാലം.
+                            ഓർക്കുമ്പോൾ എന്തോരു സന്തോഷം.</span>
+                            
+                        <div class="card-footer">
+                            <span class="card-type">Poem</span>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="essays">
+            <h2 class="section-title">Poems - <span class="lin">English</span></h2>
+            <div class="literature-grid">
+                <!-- Essay 1 -->
+                <div class="literature-card essay" data-title="I Love Palestine" data-author="Rayyan Nilambur" data-type="english poem" data-id="english poem1">
+                    <div class="card-image">
+                        <span class="card-icon">💻</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">I Love Palestine</h3>
+                        <p>- Rayyan Nilambur</p>
+                        <br>
+                        <span class="card-author">
+                            I like Palestine 
+                            <br>
+                            I love Palestine 
+                             <br>
+<br>
+                            There is a war 
+                            <br>
+                            in the Palestine 
+                            <br>
+                            <br>
+                            Israel is the Enemy 
+                            <br>
+                            it is a hard Enemy
+                            <br>
+                            <br>
+                            My Blood is Palestine 
+                            <br>
+                            I am a Palestini
+                            <br>
+                            <br>
+                            Support is Iran 
+                            <br>
+                            Other One is Iraq
+                            <br>
+                          
+                          
+                            Israel is Wiining 
+                            <br>
+                            Palestine is Losing
+                            <br>
+                            <br>
+                            But one day Palestine wil Win <br>
+                            and become a Peace Country!</span>
+                        <div class="card-footer">
+                            <span class="card-type">English Poem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Essay 2 -->
+                <div class="literature-card essay" data-title="Palestine is Harmfull" data-author="bishrul hafi" data-type="english poem" data-id="english poem2">
+                    <div class="card-image">
+                        <span class="card-icon">🌳</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Palestine is Harmfull</h3>
+                        <p>- Bishrul Hafi</p>
+                        <br>
+                        <span class="card-author">
+                            Palestine is Crying
+                            <br>
+                            we are happy Full.
+                            <br>
+                            <br>
+                            israel is cruel 
+                            <br>
+                            we are support them 
+                            <br>
+                            <br>
+                            Palestine were peace County
+                            <br>
+                            Now it is a Plateau
+                            <br>
+                            <br>
+                            Israel is giving the bombs 
+                            <br>
+                            and the palestine is dying
+                            <br>
+                            <br>
+                            we want to pray for palestine 
+                            <br>
+                            it will become peace country 
+                            
+</span>
+                        <div class="card-footer">
+                            <span class="card-type">Essay</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Essay 3 -->
+                <div class="literature-card essay" data-title="Life" data-author="adhil" data-type="english poem" data-id="english poem3">
+                    <div class="card-image">
+                        <span class="card-icon">📖</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Life</h3>
+                        <p>- Adhil</p>
+                        <span class="card-author">
+                            one day we came 
+                            <br>
+                            one day we will gone 
+                            <br>
+                            <br>
+
+                            never decide any plan
+                            <br>
+                            after 'Insha Allah' 
+                            <br>
+                            <br>
+                            the allah give you life 
+                            <br>
+                            for your plan
+                            <br>    
+                            <br>
+                            Thanks for Allah
+                            <br>
+                            for his Gift 
+                            <br>
+                            <br>
+                            
+                            satisfie on his gift 
+                            <br>
+                            be pure Muslim</span>
+                        <div class="card-footer">
+                            <span class="card-type">English Poem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 Al Falah | All rights reserved</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            const literatureCards = document.querySelectorAll('.literature-card');
+            
+            // Array to store all literature items for searching
+            const literatureItems = Array.from(literatureCards).map(card => ({
+                id: card.getAttribute('data-id'),
+                title: card.getAttribute('data-title'),
+                author: card.getAttribute('data-author'),
+                type: card.getAttribute('data-type'),
+                element: card
+            }));
+            
+            // Search input event listener
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                
+                if (query.length < 2) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+                
+                const results = literatureItems.filter(item => 
+                    item.title.toLowerCase().includes(query) || 
+                    item.author.toLowerCase().includes(query) ||
+                    item.type.toLowerCase().includes(query)
+                );
+                
+                displaySearchResults(results);
+            });
+            
+            // Display search results
+            function displaySearchResults(results) {
+                searchResults.innerHTML = '';
+                
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+                } else {
+                    results.forEach(result => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'search-result-item';
+                        resultItem.innerHTML = `
+                            <strong>${result.title}</strong><br>
+                            <small>By ${result.author} (${result.type})</small>
+                        `;
+                        
+                        resultItem.addEventListener('click', function() {
+                            // Scroll to the result element
+                            result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // Highlight the result
+                            result.element.classList.add('highlight');
+                            
+                            // Remove highlight after animation completes
+                            setTimeout(() => {
+                                result.element.classList.remove('highlight');
+                            }, 1500);
+                            
+                            // Close search results
+                            searchResults.classList.remove('active');
+                            searchInput.value = '';
+                        });
+                        
+                        searchResults.appendChild(resultItem);
+                    });
+                }
+                
+                searchResults.classList.add('active');
+            }
+            
+            // Close search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.remove('active');
+                }
+            });
+            
+            // Card click event - could be expanded to show full content
+            literatureCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // For demo purposes, just add a highlight effect
+                    this.classList.add('highlight');
+                    
+                    // Remove highlight after animation completes
+                    setTimeout(() => {
+                        this.classList.remove('highlight');
+                    }, 1500);
+                });
+            });
+            
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = `cardAppear 0.6s ease-out forwards`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe each card
+            literatureCards.forEach((card, index) => {
+                observer.observe(card);
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
