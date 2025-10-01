@@ -444,6 +444,80 @@
     </div>
 
    <script src="script.js"></script>
+
+
+<!-- INSERT this near the end of <body> -->
+<div id="fakeHackOverlay" class="fake-hack-overlay" role="dialog" aria-modal="true" aria-labelledby="fakeHackTitle" hidden>
+  <div class="fake-hack-panel" tabindex="-1">
+    <button class="fake-hack-close" id="fakeHackClose" aria-label="Close dialog">&times;</button>
+    <h1 id="fakeHackTitle" class="fake-hack-title">SYSTEM ERROR</h1>
+    <p class="fake-hack-sub">Unauthorized access detected. Unexpected behavior encountered.</p>
+    <pre class="fake-hack-console" aria-hidden="true">
+[WARNING] Kernel anomaly...
+> trace: 0xF3A9C1...
+> connection: lost
+> attempting restoration...
+    </pre>
+    <div class="fake-hack-actions">
+      <button id="fakeHackDismiss" class="btn">Acknowledge & Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Include this script after the markup (or in script.js) -->
+<script>
+  (function(){
+    const overlay = document.getElementById('fakeHackOverlay');
+    const panel = overlay.querySelector('.fake-hack-panel');
+    const closeBtn = document.getElementById('fakeHackClose');
+    const dismissBtn = document.getElementById('fakeHackDismiss');
+
+    // Show the modal on load
+    window.addEventListener('load', () => {
+      overlay.hidden = false;
+      // small delay for animation
+      setTimeout(() => panel.focus(), 150);
+    });
+
+    // Close helper
+    function closeModal() {
+      overlay.style.opacity = 0;
+      overlay.style.pointerEvents = 'none';
+      // let animation finish then hide
+      setTimeout(() => overlay.remove(), 400);
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    dismissBtn.addEventListener('click', closeModal);
+
+    // allow Escape to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // clicking background closes
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    // trap focus inside modal while visible (basic)
+    document.addEventListener('focus', function(e){
+      if (!overlay.hidden && !overlay.contains(e.target)) {
+        e.stopPropagation();
+        panel.focus();
+      }
+    }, true);
+  })();
+</script>
+
+    
 </body>
 
 </html>
+
+
+
+
+
+
+
