@@ -448,24 +448,6 @@
    <script src="script.js"></script>
 
 
-<!-- INSERT this near the end of <body> -->
-<div id="fakeHackOverlay" class="fake-hack-overlay" role="dialog" aria-modal="true" aria-labelledby="fakeHackTitle" hidden>
-  <div class="fake-hack-panel" tabindex="-1">
-    <h1 id="fakeHackTitle" class="fake-hack-title">SERVER ERROR</h1>
-    <p class="fake-hack-sub">Unauthorized access detected. Unexpected behavior encountered.</p>
-    <pre class="fake-hack-console" aria-hidden="true">
-        [WARNING] Kernel anomaly...
-        > trace: 0xF3A9C1...
-        > connection: lost
-        > attempting restoration...
-    </pre>
-    <div class="fake-hack-actions">
-      <button class="btn">
-}catch(NumberFormatException e){
-  System.out.println</button>
-    </div>
-  </div>
-</div>
 
 <!-- Include this script after the markup (or in script.js) -->
 <script>
@@ -514,118 +496,7 @@
 </script>
 
 
-   
-.fake-hack-overlay{
-  position: fixed;
-  inset: 0;
-  background: rgba(10,10,12,0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  backdrop-filter: blur(3px);
-  animation: overlayFade .3s ease forwards;
-}
-
-.fake-hack-panel{
-  width: min(900px, 92%);
-  max-height: 86vh;
-  overflow: auto;
-  padding: 28px;
-  background: linear-gradient(180deg, #0b0b0d 0%, #111 100%);
-  border: 2px solid rgba(255,0,50,0.12);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.02);
-  color: #e6e6e6;
-  border-radius: 10px;
-  position: relative;
-  outline: none;
-  transform: translateY(-8px);
-  animation: panelPop .35s cubic-bezier(.2,.9,.2,1) forwards;
-  font-family: "Courier New", monospace;
-}
-
-.fake-hack-title{
-  margin: 0 0 8px 0;
-  font-size: 32px;
-  letter-spacing: 1px;
-  color: #ff4d4d;
-  text-shadow: 0 0 12px rgba(255,77,77,0.18);
-  display: inline-block;
-  position: relative;
-}
-
-.fake-hack-sub{
-  margin: 0 0 12px 0;
-  color: #d0d0d0;
-  opacity: .9;
-}
-
-.fake-hack-console{
-  background: rgba(0,0,0,0.55);
-  padding: 12px;
-  border-radius: 6px;
-  margin: 12px 0;
-  font-size: 13px;
-  line-height: 1.35;
-  color: #a6ffb3;
-  max-height: 200px;
-  overflow: auto;
-  border: 1px solid rgba(166,255,179,0.06);
-}
-
-/* Close button */
-.fake-hack-close{
-  position: absolute;
-  right: 10px;
-  top: 8px;
-  background: transparent;
-  border: none;
-  font-size: 26px;
-  color: #fff;
-  cursor: pointer;
-  opacity: .85;
-}
-
-/* Button */
-.fake-hack-actions .btn{
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 8px 14px;
-  border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-/* Glitch effect (decorative) */
-.fake-hack-title::after{
-  content: " HACKED";
-  color: rgba(255,255,255,0.04);
-  margin-left: 10px;
-  animation: flicker 3s infinite;
-  font-size: 14px;
-}
-
-@keyframes overlayFade { from { opacity: 0 } to { opacity: 1 } }
-@keyframes panelPop {
-  from { transform: translateY(-18px) scale(.995); opacity: 0 }
-  to   { transform: translateY(0) scale(1); opacity: 1 }
-}
-
-/* subtle flicker */
-@keyframes flicker {
-  0% { opacity: 0.02; transform: translateX(0) skewX(0deg) }
-  5% { opacity: 0.85; transform: translateX(-2px) skewX(-0.6deg) }
-  10% { opacity: 0.02; transform: translateX(2px) skewX(0.6deg) }
-  100% { opacity: 0.05; transform: translateX(0) skewX(0) }
-}
-
-/* responsive */
-@media (max-width: 520px){
-  .fake-hack-title { font-size: 22px; }
-  .fake-hack-console { font-size: 12px; max-height: 150px; }
-}
-
+  
 
     
 </body>
